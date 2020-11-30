@@ -1,25 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import Todo from "./components/Todo/Todo"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export class App extends Component {
+
+  state ={
+    isAuth : false,
+    email:"",
+    password:"",
+  };
+
+handleOnChange=(event)=>{
+  this.setState({
+  [event.target.name]:event.target.value
+})
 }
 
-export default App;
+
+handleOnSubmit =(event)=>{
+  event.preventDefault();
+
+
+}
+
+
+  render() {
+    const {isAuth} =this.state;
+
+    let showComponent = isAuth ? (<Todo />) :(
+
+      <form onSubmit ={this.handleOnSubmit}>
+      {" "}
+    <input type="text" placeholder="enter email" name="email" onChange ={this.handleOnchange}/> 
+    <br />{" "}
+
+    <input type = "text" placeholder="enter Password" onChange ={this.handleOnchange}/>
+    <br />
+    {" "}
+    <button>Sign Up</button>
+    </form>
+      );
+    return <div style={{textAlign:"center", marginTop:"15%"}}>
+        {showComponent}
+      </div>
+    
+  }
+}
+
+export default App
